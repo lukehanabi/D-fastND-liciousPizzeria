@@ -17,7 +17,7 @@ import java.lang.invoke.MethodHandles;
  * Created by lucasluduena on 07/05/17.
  */
 @Component
-public class PrepairingEntryReceiver extends Receiver {
+public class PreparingEntryReceiver extends Receiver {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

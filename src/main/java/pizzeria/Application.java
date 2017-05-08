@@ -1,10 +1,7 @@
 package pizzeria;
 
 import domain.Order;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
@@ -16,8 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import receiver.EntryOrderReceiver;
-import receiver.StoreOrderReceiver;
+import receiver.*;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -112,21 +108,72 @@ public class Application {
 
     @Bean
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-            MessageListenerAdapter listenerAdapter) {
+                                             MessageListenerAdapter listenerAdapter) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(entryQueueName,
-                storeQueueName,
-                preparingQueueName,
-                driverQueueName,
-                pickupQueueName,
-                sinkQueueName);
+        container.setQueueNames(entryQueueName);
         container.setMessageListener(listenerAdapter);
+        return container;
+    }
+    @Bean
+    SimpleMessageListenerContainer containerStore(ConnectionFactory connectionFactory,
+                                             MessageListenerAdapter listenerAdapterStore) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(storeQueueName);
+        container.setMessageListener(listenerAdapterStore);
+        return container;
+    }
+    @Bean
+    SimpleMessageListenerContainer containerPrep(ConnectionFactory connectionFactory,
+                                             MessageListenerAdapter listenerAdapterPrep) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(preparingQueueName);
+        container.setMessageListener(listenerAdapterPrep);
+        return container;
+    }
+    @Bean
+    SimpleMessageListenerContainer containerDriver(ConnectionFactory connectionFactory,
+                                             MessageListenerAdapter listenerAdapterDriver) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(driverQueueName);
+        container.setMessageListener(listenerAdapterDriver);
+        return container;
+    }
+    @Bean
+    SimpleMessageListenerContainer containerPickup(ConnectionFactory connectionFactory,
+                                             MessageListenerAdapter listenerAdapterPickup) {
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(pickupQueueName);
+        container.setMessageListener(listenerAdapterPickup);
         return container;
     }
 
     @Bean
     MessageListenerAdapter listenerAdapter(EntryOrderReceiver foo) {
+        return new MessageListenerAdapter(foo, "receiveMessage");
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapterStore(StoreOrderReceiver foo) {
+        return new MessageListenerAdapter(foo, "receiveMessage");
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapterPrep(PreparingEntryReceiver foo) {
+        return new MessageListenerAdapter(foo, "receiveMessage");
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapterDriver(DriverEntryReceiver foo) {
+        return new MessageListenerAdapter(foo, "receiveMessage");
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapterPickup(PickupEntryReceiver foo) {
         return new MessageListenerAdapter(foo, "receiveMessage");
     }
 
