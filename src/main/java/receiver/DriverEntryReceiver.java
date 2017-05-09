@@ -44,7 +44,6 @@ public class DriverEntryReceiver extends Receiver {
         } else {
             /** Location Needed*/
             theOrder.setLocation(locationService.getOrderlocation((theOrder)));
-            //rabbitTemplate.convertAndSend(Application.getDriverQueueName(), order);
         }
         notificationService.sendSMSandEmail(order.toString());
     }
