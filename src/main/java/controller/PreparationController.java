@@ -3,10 +3,7 @@ package controller;
 import domain.Order;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pizzeria.Application;
 import service.NotificationService;
 import service.PreparationStatusService;
@@ -30,7 +27,7 @@ public class PreparationController {
     NotificationService notificationService;
 
     @RequestMapping(value = "/status/{status}", method = {RequestMethod.POST})
-    public void changeStatus(@PathVariable Order order, @PathVariable String status) {
+    public Order changeStatus(@RequestBody Order order, @PathVariable String status) {
         System.out.println(order.toString());
 
         order.setStatus(status.toString());
@@ -38,6 +35,8 @@ public class PreparationController {
         rabbitTemplate.convertAndSend(Application.getPreparingQueueName(), order);
 
         notificationService.sendSMSandEmail(order.toString());
+
+        return order;
     }
 
 

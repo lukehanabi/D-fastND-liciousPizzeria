@@ -11,15 +11,14 @@ import service.RoutingService;
  * Created by lucasluduena on 07/05/17.
  */
 @RestController
-@RequestMapping("/routing")
 public class RoutingController {
 
     @Autowired
     RoutingService routingService;
 
-    @RequestMapping(value = "/", method = {RequestMethod.POST})
+    @RequestMapping(value = "/routing", method = {RequestMethod.POST})
     @ResponseBody
-    private String getRouting(@RequestParam(value = "order") Order order) {
+    private String getRouting(@RequestBody Order order) {
         return routingService.getRouting(order.getStore(), order.getDestination(),
                 order.getDriver());
     }
