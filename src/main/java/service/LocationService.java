@@ -4,6 +4,7 @@ import domain.Order;
 import org.springframework.stereotype.Service;
 
 /**
+ * Gets Order Location.
  * Created by lucasluduena on 07/05/17.
  */
 @Service

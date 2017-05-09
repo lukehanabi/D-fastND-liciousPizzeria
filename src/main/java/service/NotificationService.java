@@ -3,6 +3,7 @@ package service;
 import org.springframework.stereotype.Service;
 
 /**
+ * Notifies order Status by email and SMS.
  * Created by lucasluduena on 07/05/17.
  */
 @Service

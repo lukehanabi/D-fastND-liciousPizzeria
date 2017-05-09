@@ -28,3 +28,9 @@ mvn spring-boot:run
 
 sudo docker build .../D-fastND-liciousPizzeria/src/main/java/docker
 
+# Sequence Diagram:
+
+Pizzeria.dia
+
+https://github.com/lukehanabi/D-fastND-liciousPizzeria/blob/master/Pizzeria.png
+

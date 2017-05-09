@@ -12,6 +12,8 @@ import service.NotificationService;
 import service.PreparationStatusService;
 
 /**
+ * Sets the Preparation Status and returns it for the App.
+ * <p>
  * Created by lucasluduena on 07/05/17.
  */
 @RestController

@@ -5,6 +5,7 @@ import domain.Order;
 import org.springframework.stereotype.Service;
 
 /**
+ * Assigns driver to order.
  * Created by lucasluduena on 07/05/17.
  */
 @Service

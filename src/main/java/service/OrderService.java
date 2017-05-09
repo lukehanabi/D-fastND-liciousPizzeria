@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import pizzeria.Application;
 
 /**
+ * Receives the main Order.
  * Created by lucasluduena on 07/05/17.
  */
 @Service

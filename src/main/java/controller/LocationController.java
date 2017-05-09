@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import service.LocationService;
 
 /**
+ * Returns location for a specific order.
  * Created by lucasluduena on 07/05/17.
  */
 @RestController

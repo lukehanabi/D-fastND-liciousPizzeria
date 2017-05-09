@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import service.RoutingService;
 
 /**
+ * Gets Routing maps for an Order or a List of Orders.
+ * <p>
  * Created by lucasluduena on 07/05/17.
  */
 @RestController

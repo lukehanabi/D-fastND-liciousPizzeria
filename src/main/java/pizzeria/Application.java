@@ -18,6 +18,12 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * This Application manages changes and aggregations
+ * to a pizza order between RabbitMQ Queues.
+ * Interactions with external apps are managed by controllers
+ * and services.
+ */
 @SpringBootApplication
 @ComponentScan(basePackages = "receiver")
 @ComponentScan(basePackages = "service")

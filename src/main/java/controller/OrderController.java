@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import service.OrderService;
 
 /**
+ * Interacts with the Mobile and Web apps to create,
+ * modify, or cancel an order.
  * Created by lucasluduena on 07/05/17.
  */
 @RestController

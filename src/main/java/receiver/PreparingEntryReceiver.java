@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
 /**
+ * Pizza preparation Queue receiver.
  * Created by lucasluduena on 07/05/17.
  */
 @Component

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 /**
+ * Generic Receiver.
  * Created by lucasluduena on 07/05/17.
  */
 public class Receiver {

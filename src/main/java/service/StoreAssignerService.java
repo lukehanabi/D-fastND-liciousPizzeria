@@ -5,6 +5,7 @@ import domain.Store;
 import org.springframework.stereotype.Service;
 
 /**
+ * Sets nearest Store for the pizza order Destination.
  * Created by lucasluduena on 07/05/17.
  */
 @Service
