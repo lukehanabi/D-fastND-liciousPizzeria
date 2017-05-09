@@ -34,3 +34,9 @@ Pizzeria.dia
 
 https://github.com/lukehanabi/D-fastND-liciousPizzeria/blob/master/Pizzeria.png
 
+# Deployment Diagram:
+
+Deployment.dia
+
+https://github.com/lukehanabi/D-fastND-liciousPizzeria/blob/master/Deployment.png
+
