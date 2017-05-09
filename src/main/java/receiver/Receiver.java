@@ -6,6 +6,9 @@ import domain.Order;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * Created by lucasluduena on 07/05/17.
+ */
 public class Receiver {
 
     private CountDownLatch latch = new CountDownLatch(1);

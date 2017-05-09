@@ -15,7 +15,7 @@ public class RoutingController {
     @Autowired
     RoutingService routingService;
 
-    @RequestMapping(value = "/", method = { RequestMethod.POST })
+    @RequestMapping(value = "/", method = {RequestMethod.POST})
     @ResponseBody
     private String getRouting(@RequestParam(value = "order") Order order) {
         return routingService.getRouting(order.getStore(), order.getDestination(),

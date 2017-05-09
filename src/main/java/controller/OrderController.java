@@ -16,7 +16,7 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
-    @RequestMapping(value = "", method = { RequestMethod.POST })
+    @RequestMapping(value = "", method = {RequestMethod.POST})
     @ResponseBody
     private String receiveOrder(@RequestParam(value = "order") String order) {
         ObjectMapper objectMapper = new ObjectMapper();

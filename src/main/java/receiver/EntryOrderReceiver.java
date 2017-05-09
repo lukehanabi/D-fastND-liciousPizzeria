@@ -1,12 +1,10 @@
 package receiver;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.Order;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Component;
 import pizzeria.Application;
 import service.NotificationService;
@@ -19,7 +17,7 @@ import java.lang.invoke.MethodHandles;
  * Created by lucasluduena on 07/05/17.
  */
 @Component
-public class EntryOrderReceiver extends Receiver{
+public class EntryOrderReceiver extends Receiver {
 
     private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 

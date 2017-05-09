@@ -1,14 +1,12 @@
 package pizzeria;
 
-import domain.Order;
-import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.amqp.support.converter.JsonMessageConverter;
-import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -77,32 +75,32 @@ public class Application {
     }
 
     @Bean
-    Binding bindEntryQueue(Queue entryQueue,TopicExchange exchange) {
+    Binding bindEntryQueue(Queue entryQueue, TopicExchange exchange) {
         return BindingBuilder.bind(entryQueue).to(exchange).with(entryQueueName);
     }
 
     @Bean
-    Binding bindStoreQueue(Queue storeQueue,TopicExchange exchange) {
+    Binding bindStoreQueue(Queue storeQueue, TopicExchange exchange) {
         return BindingBuilder.bind(storeQueue).to(exchange).with(storeQueueName);
     }
 
     @Bean
-    Binding bindPreparingQueue(Queue preparingQueue,TopicExchange exchange) {
+    Binding bindPreparingQueue(Queue preparingQueue, TopicExchange exchange) {
         return BindingBuilder.bind(preparingQueue).to(exchange).with(preparingQueueName);
     }
 
     @Bean
-    Binding bindDriverQueue(Queue driverQueue,TopicExchange exchange) {
+    Binding bindDriverQueue(Queue driverQueue, TopicExchange exchange) {
         return BindingBuilder.bind(driverQueue).to(exchange).with(driverQueueName);
     }
 
     @Bean
-    Binding bindPickupQueue(Queue pickupQueue,TopicExchange exchange) {
+    Binding bindPickupQueue(Queue pickupQueue, TopicExchange exchange) {
         return BindingBuilder.bind(pickupQueue).to(exchange).with(pickupQueueName);
     }
 
     @Bean
-    Binding bindSinkQueue(Queue sinkQueue,TopicExchange exchange) {
+    Binding bindSinkQueue(Queue sinkQueue, TopicExchange exchange) {
         return BindingBuilder.bind(sinkQueue).to(exchange).with(sinkQueueName);
     }
 
@@ -115,36 +113,40 @@ public class Application {
         container.setMessageListener(listenerAdapter);
         return container;
     }
+
     @Bean
     SimpleMessageListenerContainer containerStore(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapterStore) {
+                                                  MessageListenerAdapter listenerAdapterStore) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(storeQueueName);
         container.setMessageListener(listenerAdapterStore);
         return container;
     }
+
     @Bean
     SimpleMessageListenerContainer containerPrep(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapterPrep) {
+                                                 MessageListenerAdapter listenerAdapterPrep) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(preparingQueueName);
         container.setMessageListener(listenerAdapterPrep);
         return container;
     }
+
     @Bean
     SimpleMessageListenerContainer containerDriver(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapterDriver) {
+                                                   MessageListenerAdapter listenerAdapterDriver) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(driverQueueName);
         container.setMessageListener(listenerAdapterDriver);
         return container;
     }
+
     @Bean
     SimpleMessageListenerContainer containerPickup(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapterPickup) {
+                                                   MessageListenerAdapter listenerAdapterPickup) {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(pickupQueueName);

@@ -8,7 +8,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import receiver.Receiver;
 
-//@Component
+/**
+ * Created by lucasluduena on 07/05/17.
+ */
 public class Runner implements CommandLineRunner {
 
     private final RabbitTemplate rabbitTemplate;

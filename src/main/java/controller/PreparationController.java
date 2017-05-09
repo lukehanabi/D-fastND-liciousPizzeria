@@ -1,7 +1,6 @@
 package controller;
 
 import domain.Order;
-import domain.Status;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,7 @@ public class PreparationController {
     @Autowired
     NotificationService notificationService;
 
-    @RequestMapping(value = "/status/{status}", method = { RequestMethod.POST })
+    @RequestMapping(value = "/status/{status}", method = {RequestMethod.POST})
     public void changeStatus(@PathVariable Order order, @PathVariable String status) {
         System.out.println(order.toString());
 

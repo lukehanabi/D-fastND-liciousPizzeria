@@ -34,13 +34,13 @@ public class PreparingEntryReceiver extends Receiver {
 
         Order theOrder = convertToOrder(order);
 
-            if (theOrder.getStatus().equals(Status.DONE.toString()) &&
-                    theOrder.getPickup().equals(true)) {
-                rabbitTemplate.convertAndSend(Application.getPickupQueueName(), order);
-            } else if (theOrder.getStatus().equals(Status.DONE.toString()) &&
-                    theOrder.getPickup().equals(false)) {
-                rabbitTemplate.convertAndSend(Application.getDriverQueueName(), order);
-            }
+        if (theOrder.getStatus().equals(Status.DONE.toString()) &&
+                theOrder.getPickup().equals(true)) {
+            rabbitTemplate.convertAndSend(Application.getPickupQueueName(), order);
+        } else if (theOrder.getStatus().equals(Status.DONE.toString()) &&
+                theOrder.getPickup().equals(false)) {
+            rabbitTemplate.convertAndSend(Application.getDriverQueueName(), order);
+        }
 
         notificationService.sendSMSandEmail(order.toString());
     }

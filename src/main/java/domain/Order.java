@@ -1,7 +1,6 @@
 package domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -9,38 +8,58 @@ import java.util.List;
  * Created by lucasluduena on 07/05/17.
  */
 public class Order {
-    /** Order ID*/
+    /**
+     * Order ID
+     */
     @JsonProperty("id")
     String id;
-    /** Client Data*/
+    /**
+     * Client Data
+     */
     Client client;
-    /** Order Status*/
+    /**
+     * Order Status
+     */
     @JsonProperty("status")
     String status;
-    /** Destination Address*/
+    /**
+     * Destination Address
+     */
     Destination destination;
-    /** items ordered*/
+    /**
+     * items ordered
+     */
     List<Items> items;
-    /** Order taken by member*/
+    /**
+     * Order taken by member
+     */
     String staff;
-    /** GPS Location*/
+    /**
+     * GPS Location
+     */
     String location;
-    /** Store Data*/
+    /**
+     * Store Data
+     */
     Store store;
-    /** Driver assigned*/
+    /**
+     * Driver assigned
+     */
     Driver driver;
-    /** Order for pickup: true or false*/
+    /**
+     * Order for pickup: true or false
+     */
     @JsonProperty("pickup")
     Boolean pickup;
 
-    public Order(String orderId, String status, Boolean pickup)
-    {
+    public Order(String orderId, String status, Boolean pickup) {
         this.id = orderId;
         this.status = status;
         this.pickup = pickup;
     }
 
-    public Order() {}
+    public Order() {
+    }
 
     public String getId() {
         return id;
@@ -124,7 +143,7 @@ public class Order {
 
     @Override
     public String toString() {
-        return "{ \"id\" : \""+ this.getId() + "\"," +
+        return "{ \"id\" : \"" + this.getId() + "\"," +
                 "\"status\" : \"" + this.getStatus() + "\"," +
                 "\"pickup\" : \"" + this.getPickup() + "\"}";
     }
