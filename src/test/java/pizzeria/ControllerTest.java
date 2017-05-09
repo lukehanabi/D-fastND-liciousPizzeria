@@ -41,7 +41,7 @@ public class ControllerTest {
             Charset.forName("utf8"));
 
     @Test
-    public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
+    public void shouldReceiveAnOrderAndReturnOk() throws Exception {
 
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
@@ -51,7 +51,14 @@ public class ControllerTest {
     }
 
     @Test
-    public void paramGreetingShouldReturnTailoredMessage1() throws Exception {
+    public void shouldReceiveNoOrderAndReturnOk() throws Exception {
+
+        this.mockMvc.perform(post("/order")
+                .contentType(contentType)).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void shouldReceiveAnOrderAndReturnOkForRouting() throws Exception {
 
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
@@ -61,7 +68,17 @@ public class ControllerTest {
     }
 
     @Test
-    public void paramGreetingShouldReturnTailoredMessage() throws Exception {
+    public void shouldReceiveNoOrderAndReturnOkForRouting() throws Exception {
+
+        Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
+                Order.class);
+
+        this.mockMvc.perform(post("/routing")
+                .contentType(contentType)).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void shouldReceiveAnOrderAndANewStatusAndReturnOk() throws Exception {
 
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
@@ -71,7 +88,14 @@ public class ControllerTest {
     }
 
     @Test
-    public void paramGreetingShouldReturnTailoredMessage3() throws Exception {
+    public void shouldReceiveNoOrderAndANewStatusAndReturnOk() throws Exception {
+
+        this.mockMvc.perform(post("/preparation/status/DONE")
+                .contentType(contentType)).andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void shouldReceiveAnOrderAndSendNotificationsByEmailAndSMSAndReturnOk() throws Exception {
 
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
@@ -86,10 +110,31 @@ public class ControllerTest {
     }
 
     @Test
-    public void paramGreetingShouldReturnTailoredMessage4() throws Exception {
+    public void shouldReceiveNoOrderAndSendNotificationsByEmailAndSMSAndReturnOk() throws Exception {
+
+        this.mockMvc.perform(post("/notification/sms")
+                .contentType(contentType)).andExpect(status().is4xxClientError());
+        this.mockMvc.perform(post("/notification/email")
+                .contentType(contentType)).andExpect(status().is4xxClientError());
+        this.mockMvc.perform(post("/notification/smsandemail")
+                .contentType(contentType)).andExpect(status().is4xxClientError());
+
+    }
+
+    @Test
+    public void shouldReceiveAnOrderAndReturnLocationOk() throws Exception {
+        Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
+                Order.class);
 
         this.mockMvc.perform(post("/location")
-                .contentType(contentType)).andExpect(status().isOk());
+                .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
+    }
+
+    @Test
+    public void shouldReceiveNoOrderAndReturnLocationError() throws Exception {
+
+        this.mockMvc.perform(post("/location")
+                .contentType(contentType)).andExpect(status().is4xxClientError());
     }
 
 

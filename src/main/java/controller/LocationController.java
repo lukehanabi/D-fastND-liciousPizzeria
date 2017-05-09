@@ -2,6 +2,7 @@ package controller;
 
 import domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +21,7 @@ public class LocationController {
 
     @RequestMapping("")
     @ResponseBody
-    private String getLocation(Order order) {
+    private String getLocation(@RequestBody Order order) {
         return locationService.getOrderlocation(order);
     }
 

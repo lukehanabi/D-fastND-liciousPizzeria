@@ -1,6 +1,8 @@
 package controller;
 
+import domain.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,19 +21,19 @@ public class NotificationController {
 
     @RequestMapping("/sms")
     @ResponseBody
-    public String sendSMS(String data) {
-        return notificationService.sendSMS(data);
+    public String sendSMS(@RequestBody Order order) {
+        return notificationService.sendSMS(order.toString());
     }
 
     @RequestMapping("/email")
     @ResponseBody
-    private String sendEmail(String data) {
-        return notificationService.sendEmail(data);
+    private String sendEmail(@RequestBody Order order) {
+        return notificationService.sendEmail(order.toString());
     }
 
     @RequestMapping("/smsandemail")
     @ResponseBody
-    private String sendSMSandEmail(String data) {
-        return notificationService.sendSMSandEmail(data);
+    private String sendSMSandEmail(@RequestBody Order order) {
+        return notificationService.sendSMSandEmail(order.toString());
     }
 }
