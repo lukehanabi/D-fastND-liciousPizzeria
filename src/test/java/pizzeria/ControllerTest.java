@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.Order;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -46,7 +48,7 @@ public class ControllerTest {
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
 
-        this.mockMvc.perform(post("/order")
+        this.mockMvc.perform(post("/order").header(HttpHeaders.AUTHORIZATION, getAuthHeader())
                 .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
     }
 
@@ -63,7 +65,7 @@ public class ControllerTest {
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
 
-        this.mockMvc.perform(post("/routing")
+        this.mockMvc.perform(post("/routing").header(HttpHeaders.AUTHORIZATION, getAuthHeader())
                 .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
     }
 
@@ -83,7 +85,7 @@ public class ControllerTest {
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
 
-        this.mockMvc.perform(post("/preparation/status/DONE")
+        this.mockMvc.perform(post("/preparation/status/DONE").header(HttpHeaders.AUTHORIZATION, getAuthHeader())
                 .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
     }
 
@@ -100,11 +102,11 @@ public class ControllerTest {
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
 
-        this.mockMvc.perform(post("/notification/sms")
+        this.mockMvc.perform(post("/notification/sms").header(HttpHeaders.AUTHORIZATION, getAuthHeader())
                 .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
-        this.mockMvc.perform(post("/notification/email")
+        this.mockMvc.perform(post("/notification/email").header(HttpHeaders.AUTHORIZATION, getAuthHeader())
                 .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
-        this.mockMvc.perform(post("/notification/smsandemail")
+        this.mockMvc.perform(post("/notification/smsandemail").header(HttpHeaders.AUTHORIZATION, getAuthHeader())
                 .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
 
     }
@@ -126,7 +128,7 @@ public class ControllerTest {
         Order order = objmapper.readValue(String.valueOf(getJsonOrderFile("order.json")),
                 Order.class);
 
-        this.mockMvc.perform(post("/location")
+        this.mockMvc.perform(post("/location").header(HttpHeaders.AUTHORIZATION, getAuthHeader())
                 .content(order.toString()).contentType(contentType)).andExpect(status().isOk());
     }
 
@@ -155,4 +157,9 @@ public class ControllerTest {
         return null;
     }
 
+    private String getAuthHeader() {
+      String auth = "user:password";
+      byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+      return "Basic " + new String(encodedAuth);
+    }
 }
